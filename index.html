@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Affiliation</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="spinner.css">
+  </head>
+
+  <body>
+    <nav>
+      <div>
+        <a href="index.html">
+          <img src="images/book_af_logo.png" alt="" class="bookaf-logo" />
+        </a>
+        <a class="nav-items" href="#">Home</a>
+        <div class="dropdown">
+          <button id="showDrop" class="nav-items">Category</button>
+          <div id="dropContent" class=" dropdown-content hide">
+            <span class="drop">Growth</span>
+            <span class="drop">Income</span>
+            <span class="drop">Fitness</span>
+            <span class="drop">Mind</span>
+          </div>
+        </div>
+        <a class="nav-items hide" href="#">About Us</a>
+        <a class="nav-items" href="mailto:omc0784@gmail.com">Contact Us</a>
+      </div>
+      <hr />
+    </nav>
+    <div class="category-show">
+      <span class="temp-title">Category: </span>
+      <span id="category" class="category-type">Growth</span>
+      <span> Books</span>
+    </div>
+    <div id="books" class="books-container">
+      <section class="book-box">
+        <span class="temp-title">Loading...</span>
+        <span class="book-name"></span>
+        <div class="spinner-box">
+          <div class="lds-ripple"><div></div><div></div></div>
+        </div>
+        <a class="buy-btn" href="#" alt="buy link">Fetching...</a>
+      </section>
+      <section class="book-box">
+        <span class="temp-title">Loading...</span>
+        <span class="book-name"></span>
+        <div class="spinner-box">
+          <div class="lds-ripple"><div></div><div></div></div>
+        </div>
+        <a class="buy-btn" href="#" alt="buy link">Fetching...</a>
+      </section>
+      <section class="book-box">
+        <span class="temp-title">Loading...</span>
+        <span class="book-name"></span>
+        <div class="spinner-box">
+          <div class="lds-ripple"><div></div><div></div></div>
+        </div>
+        <a class="buy-btn" href="#" alt="buy link">Fetching...</a>
+      </section>
+      <section class="book-box">
+        <span class="temp-title">Loading...</span>
+        <span class="book-name"></span>
+        <div class="spinner-box">
+          <div class="lds-ripple"><div></div><div></div></div>
+        </div>
+        <a class="buy-btn" href="#" alt="buy link">Fetching...</a>
+      </section>
+    </div>
+    <script type="module" src="script.js"></script>
+    <!-- <script src="/db/fb.js" type="module"></script> -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
+      import {
+        doc,
+        getFirestore,
+        setDoc,
+        getDoc,
+      } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCEVhj9MwCLykglebLehP7v8Ks_H0jXEfg",
+        authDomain: "bookaffiliation.firebaseapp.com",
+        projectId: "bookaffiliation",
+        storageBucket: "bookaffiliation.appspot.com",
+        messagingSenderId: "433705135477",
+        appId: "1:433705135477:web:85dbb193cbdc640f88773c",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      
+      //* redering data according to selection
+      function showBookList(bookData){
+        data = bookData;
+        // for create instance of books from json
+        let book=""; 
+        for(let j=0;j<data.length;j++){
+            if(data[j].type===bookSelection){
+                for(let i=0;i<data[j].books.length;i++){
+                    book += `<section class="book-box">
+                    <span class="temp-title">Title</span>
+                    <span class="book-name">${data[j].books[i].title}</span>
+                    <img class="book-cover" src="${data[j].books[i].cover}" width="170" height="200">
+                    <a class="buy-btn" href="${data[j].books[i].buylink}" alt="buy link">Buy Now</a>
+                    </section>`;
+                }
+            }
+        }
+        document.querySelector("#books").innerHTML = book;
+      }
+
+      
+     
+    </script>
+  </body>
+</html>
